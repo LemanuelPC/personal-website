@@ -38,7 +38,7 @@ export const projects: Project[] = [
 			'Adyen',
 			'Docker'
 		],
-		liveUrl: 'https://village-du-soir.com',
+		liveUrl: 'https://villagedusoir.com',
 		links: [
 			{ label: 'App Store', url: 'https://apps.apple.com/ch/app/village-du-soir/id6654923415' },
 			{ label: 'Google Play', url: 'https://play.google.com/store/apps/details?id=com.eclypsys.vds' }
