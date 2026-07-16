@@ -20,7 +20,7 @@
 </script>
 
 <svelte:head>
-	<title>Explore — Luís Carvalho</title>
+	<title>Explore - Luís Carvalho</title>
 	<meta name="description" content="Best runs. A curated selection of work worth replaying." />
 </svelte:head>
 
@@ -61,7 +61,11 @@
 	.strip {
 		position: absolute;
 		left: 15.95%;
-		top: 31.3%;
+		/* Centred on the pill rather than pinned to a fixed offset, so the cards
+		   stay centred whatever height they end up. The pill starts at 21.15% and
+		   is 66.67% of the panel tall, so its middle sits here. */
+		top: 54.49%;
+		translate: 0 -50%;
 		width: 66.65%;
 		display: flex;
 		gap: 10px;
@@ -132,6 +136,7 @@
 		.strip {
 			left: 17%;
 			top: 26.3%;
+			translate: none;
 			width: 66%;
 			height: 47.4%;
 			flex-direction: column;
@@ -141,8 +146,9 @@
 			scroll-snap-type: y mandatory;
 			gap: 1.3em;
 			/* scale the card with the panel (no cap) so it stays centred in the
-			   capsule instead of drifting left as the width grows */
-			font-size: 2.514cqw;
+			   capsule instead of drifting left as the width grows. 30em at 2.2cqw
+			   spans the strip's 66%, so the card fills the capsule as before. */
+			font-size: 2.2cqw;
 		}
 
 		/* Arrows move to the top/bottom of the capsule and point up/down */

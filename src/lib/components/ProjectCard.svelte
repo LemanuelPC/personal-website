@@ -80,12 +80,16 @@
 </article>
 
 <style>
-	/* 1em = 12px at design scale (card 315.3px wide) */
+	/* 1em = 12px at design scale. Figma draws the card at 315.3x308 (26.25em, near
+	   square), but the real descriptions and tool lists overflow that: widened to
+	   30em so the text and chips have room, with the extra going to the details
+	   column. Slightly wider than tall, rather than Figma's square, to keep the
+	   height down now that the width carries the content. */
 	.card {
 		display: flex;
 		gap: 1.85em;
-		width: 26.25em;
-		aspect-ratio: 315.3 / 308;
+		width: 30em;
+		aspect-ratio: 30 / 28;
 		padding: 1.6em 1.55em;
 		background: var(--void);
 		border-radius: 1.25em;
