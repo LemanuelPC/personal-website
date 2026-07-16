@@ -12,11 +12,11 @@
 				'Flutter',
 				'React',
 				'SvelteKit',
+				'Tailwind',
 				'Node.js',
 				'Express',
 				'FastAPI',
 				'Flask',
-				'Spring Boot',
 				'Tauri'
 			]
 		},
