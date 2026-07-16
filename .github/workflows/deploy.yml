@@ -1,0 +1,73 @@
+name: Deploy to Hostinger
+
+# Hostinger's own git integration clones the repo and publishes it verbatim, which
+# for a SvelteKit app serves the source instead of the site. This builds first and
+# rsyncs only the prerendered output into public_html.
+#
+# Repository secrets (Settings > Secrets and variables > Actions):
+#   SSH_PRIVATE_KEY  deploy key whose public half is registered in hPanel
+#   SSH_HOST         server IP
+#   SSH_PORT         Hostinger's SSH port (65002)
+#   SSH_USER         hosting account user (uXXXXXXXXX)
+#   DEPLOY_PATH      document root, with a trailing slash
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      # Fail here rather than rsync an empty directory over the live site.
+      - name: Check the build produced a site
+        run: |
+          test -f build/index.html
+          test -f build/resume/index.html
+          test -f build/resume.pdf
+          echo "build ok: $(find build -type f | wc -l) files, $(du -sh build | cut -f1)"
+
+      - name: Authorize the deploy key
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          # Pin the host key so the upload cannot be intercepted.
+          ssh-keyscan -p "$SSH_PORT" "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+
+      # -rlz rather than -a: this is shared hosting, so preserving owner/group
+      # would only warn. --delete clears the hashed asset chunks of past builds.
+      - name: Deploy
+        run: |
+          rsync -rlz --delete --chmod=D755,F644 \
+            -e "ssh -i ~/.ssh/deploy_key -p ${{ secrets.SSH_PORT }}" \
+            build/ "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}"
+
+      - name: Verify the site responds
+        run: |
+          sleep 3
+          for path in / /work/ /resume/ /resume.pdf; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' -L "https://lepc.dev$path")
+            echo "  $code  $path"
+            [ "$code" = "200" ] || exit 1
+          done
