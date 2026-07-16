@@ -21,7 +21,7 @@
 </script>
 
 <svelte:head>
-	<title>Connect — Luís Carvalho</title>
+	<title>Connect - Luís Carvalho</title>
 	<meta name="description" content="Let’s connect. Email me or find me on GitHub and LinkedIn." />
 </svelte:head>
 

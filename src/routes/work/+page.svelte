@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-	<title>Work — Luís Carvalho</title>
+	<title>Work - Luís Carvalho</title>
 	<meta name="description" content="All shipped work across products and platforms." />
 </svelte:head>
 

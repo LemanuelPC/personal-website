@@ -7,10 +7,10 @@
 </script>
 
 <header>
-	<a href="/" class="logo logo-horizontal" aria-label="Luís Carvalho — home">
+	<a href="/" class="logo logo-horizontal" aria-label="Luís Carvalho - home">
 		{@html logoHorizontal}
 	</a>
-	<a href="/" class="logo logo-vertical" aria-label="Luís Carvalho — home">
+	<a href="/" class="logo logo-vertical" aria-label="Luís Carvalho - home">
 		{@html logoVertical}
 	</a>
 	<div class="actions">

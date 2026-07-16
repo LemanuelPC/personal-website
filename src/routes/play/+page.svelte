@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-	<title>Play — Luís Carvalho</title>
+	<title>Play - Luís Carvalho</title>
 	<meta name="description" content="Experiments, prototypes, and things I made for fun." />
 </svelte:head>
 

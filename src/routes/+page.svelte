@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-	<title>Luís Carvalho — Software Developer</title>
+	<title>Luís Carvalho - Software Developer</title>
 	<meta name="description" content="Hi, I’m Luís. A software developer." />
 </svelte:head>
 
