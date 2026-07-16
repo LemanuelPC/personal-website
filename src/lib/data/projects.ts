@@ -85,6 +85,7 @@ export const projects: Project[] = [
 			'The site you’re on, built in SvelteKit with Svelte 5 runes, hand-crafted from my own Figma brand, with theming and micro-interactions coded from scratch rather than pulled from a component library.',
 		tools: ['SvelteKit', 'Svelte 5', 'TypeScript', 'Vite'],
 		liveUrl: 'https://lepc.dev',
+		githubUrl: 'https://github.com/LemanuelPC/personal-website',
 		image: '/projects/lepc-dev.webp',
 		logoText: 'lepc.dev',
 		frame: 'wide',
