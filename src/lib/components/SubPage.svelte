@@ -7,13 +7,15 @@
 		subtitle,
 		panel,
 		gridCols = 15,
-		gridRows = 12
+		gridRows = 12,
+		mobilePortrait = false
 	}: {
 		title: string;
 		subtitle: string;
 		panel: Snippet;
 		gridCols?: number;
 		gridRows?: number;
+		mobilePortrait?: boolean;
 	} = $props();
 </script>
 
@@ -27,7 +29,7 @@
 		<p class="subtitle">{subtitle}</p>
 	</div>
 
-	<div class="panel" style:--cols={gridCols} style:--rows={gridRows}>
+	<div class="panel" class:portrait={mobilePortrait} style:--cols={gridCols} style:--rows={gridRows}>
 		{@render panel()}
 	</div>
 </section>
@@ -121,6 +123,22 @@
 
 		.panel {
 			width: 100%;
+		}
+
+		/* Mobile Figma frames use a portrait grid panel (329x439). */
+		.panel.portrait {
+			aspect-ratio: 329.49 / 438.804;
+			background-image:
+				repeating-linear-gradient(
+					to right,
+					var(--ink) 0 1px,
+					transparent 1px calc(100% / 6)
+				),
+				repeating-linear-gradient(
+					to bottom,
+					var(--ink) 0 1px,
+					transparent 1px calc(100% / 8)
+				);
 		}
 	}
 </style>

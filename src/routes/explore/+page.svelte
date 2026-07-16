@@ -9,9 +9,13 @@
 	let strip: HTMLElement;
 
 	function scrollByCard(dir: 1 | -1) {
-		const card = strip.querySelector('article');
-		const step = card ? card.getBoundingClientRect().width + 10 : 320;
-		strip.scrollBy({ left: dir * step, behavior: 'smooth' });
+		const rect = strip.querySelector('article')?.getBoundingClientRect();
+		// Mobile stacks cards and scrolls vertically; desktop is a horizontal strip.
+		if (window.matchMedia('(max-width: 760px)').matches) {
+			strip.scrollBy({ top: dir * ((rect?.height ?? 220) + 12), behavior: 'smooth' });
+		} else {
+			strip.scrollBy({ left: dir * ((rect?.width ?? 320) + 10), behavior: 'smooth' });
+		}
 	}
 </script>
 
@@ -20,7 +24,7 @@
 	<meta name="description" content="Best runs. A curated selection of work worth replaying." />
 </svelte:head>
 
-<SubPage title="Best runs." subtitle="A curated selection of work worth replaying.">
+<SubPage title="Best runs." subtitle="A curated selection of work worth replaying." mobilePortrait>
 	{#snippet panel()}
 		<div class="track" aria-hidden="true"></div>
 
@@ -57,15 +61,16 @@
 	.strip {
 		position: absolute;
 		left: 15.95%;
-		top: 36.75%;
+		top: 31.3%;
 		width: 66.65%;
 		display: flex;
 		gap: 10px;
 		overflow-x: auto;
 		scroll-snap-type: x mandatory;
 		scrollbar-width: none;
-		/* 1em = 12px at panel width 836 -> card text scales with the panel */
-		font-size: clamp(9px, 1.435cqw, 12px);
+		/* 1em = 12px at panel width 836; scale text with the panel all the way
+		   down (no min) so the cards always fit inside the pill. */
+		font-size: min(1.435cqw, 12px);
 	}
 
 	.strip::-webkit-scrollbar {
@@ -113,10 +118,49 @@
 	}
 
 	@media (max-width: 760px) {
+		/* Vertical capsule inside the portrait panel */
+		.track {
+			aspect-ratio: auto;
+			left: 11.1%;
+			top: 8.34%;
+			width: 77.7%;
+			height: 83.3%;
+			border-radius: 999px;
+		}
+
+		/* Cards stack and scroll vertically, per the Figma mobile frame */
 		.strip {
-			font-size: clamp(9px, 2.8cqw, 12px);
-			left: 10%;
-			width: 80%;
+			left: 17%;
+			top: 26.3%;
+			width: 66%;
+			height: 47.4%;
+			flex-direction: column;
+			align-items: center;
+			overflow-x: hidden;
+			overflow-y: auto;
+			scroll-snap-type: y mandatory;
+			gap: 1.3em;
+			/* scale the card with the panel (no cap) so it stays centred in the
+			   capsule instead of drifting left as the width grows */
+			font-size: 2.514cqw;
+		}
+
+		/* Arrows move to the top/bottom of the capsule and point up/down */
+		.arrow {
+			width: 7%;
+		}
+
+		.arrow.prev {
+			left: 46.5%;
+			top: 13.5%;
+			scale: 1 1;
+			rotate: -90deg;
+		}
+
+		.arrow.next {
+			left: 46.5%;
+			top: 80%;
+			rotate: 90deg;
 		}
 	}
 </style>
