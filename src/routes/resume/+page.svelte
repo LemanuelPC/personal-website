@@ -2,10 +2,23 @@
 	import logomark from '$lib/assets/logomark.svg?raw';
 
 	const skills = [
-		{ group: 'Programming', items: ['Java', 'JavaScript', 'Python', 'SQL'] },
-		{ group: 'Frameworks', items: ['React', 'Flask', 'Spring Boot', 'Hibernate', 'Node.js', 'Tailwind'] },
-		{ group: 'Methodologies', items: ['SCRUM', 'Kanban'] },
-		{ group: 'Tools', items: ['Git', 'IntelliJ', 'VS Code', 'PyCharm', 'Docker', 'REST API'] }
+		{ group: 'Programming', items: ['Python', 'TypeScript', 'JavaScript', 'Java', 'SQL'] },
+		{
+			group: 'Frameworks',
+			items: [
+				'Odoo',
+				'React Native',
+				'Expo',
+				'Flutter',
+				'React',
+				'SvelteKit',
+				'FastAPI',
+				'Flask',
+				'Spring Boot'
+			]
+		},
+		{ group: 'Data & Infra', items: ['PostgreSQL', 'Redis', 'Docker', 'Git', 'REST', 'WebSockets'] },
+		{ group: 'Methodologies', items: ['SCRUM', 'Kanban'] }
 	];
 
 	const experience = [
@@ -13,7 +26,7 @@
 			org: 'Eclypsys',
 			role: 'Full Stack Developer',
 			period: '2024 - present',
-			text: 'Designed, developed, and maintained enterprise-level ERP and e-commerce applications, working across backend, frontend, and integration layers. Utilized Odoo, Django, and SvelteKit to build scalable, maintainable systems supporting core business operations.'
+			text: 'Designed, developed, and maintained enterprise-level ERP and e-commerce applications, working across backend, frontend, and integration layers. Utilized Odoo, Python, and React Native to build scalable, maintainable systems supporting core business operations, from custom ERP modules to a customer-facing mobile app.'
 		},
 		{
 			org: 'Fed. Portuguesa de Artes Marciais Chinesas',
@@ -92,9 +105,9 @@
 				<section>
 					<h2>Profile</h2>
 					<p>
-						Software Developer focused on scalable application development and complex
-						problem-solving. Skilled in Java, JavaScript, and Python, with hands-on experience in
-						React, Spring Boot, and Flask to deliver efficient, real-world solutions.
+						Full-stack developer building production ERP, web and mobile systems: custom Odoo
+						modules in Python, React Native apps in TypeScript. I work across stacks by design, and
+						a new framework is a ramp rather than a wall.
 					</p>
 				</section>
 
