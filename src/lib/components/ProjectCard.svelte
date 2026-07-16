@@ -60,6 +60,20 @@
 						</svg>
 					</a>
 				{/if}
+				{#each project.links ?? [] as link}
+					<a class="mini-keycap" href={link.url} target="_blank" rel="noopener noreferrer">
+						{link.label}
+						<svg viewBox="0 0 12 12" aria-hidden="true">
+							<path
+								d="M3 1.5 L10 6 L3 10.5 Z"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.8"
+								stroke-linejoin="round"
+							/>
+						</svg>
+					</a>
+				{/each}
 			</div>
 		</div>
 	</div>
@@ -71,7 +85,7 @@
 		display: flex;
 		gap: 1.85em;
 		width: 26.25em;
-		aspect-ratio: 315.3 / 236.9;
+		aspect-ratio: 315.3 / 308;
 		padding: 1.6em 1.55em;
 		background: var(--void);
 		border-radius: 1.25em;
@@ -140,6 +154,7 @@
 		padding: 0;
 		margin: 0.55em 0 0;
 		display: flex;
+		flex-wrap: wrap;
 		gap: 0.4em;
 	}
 
@@ -154,6 +169,7 @@
 	.links {
 		margin-top: 0.55em;
 		display: flex;
+		flex-wrap: wrap;
 		gap: 0.85em;
 	}
 

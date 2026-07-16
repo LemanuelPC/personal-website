@@ -64,14 +64,31 @@
 					</svg>
 				</a>
 			{/if}
+			{#each project.links ?? [] as link}
+				<a class="mini-keycap" href={link.url} target="_blank" rel="noopener noreferrer">
+					{link.label}
+					<svg viewBox="0 0 12 12" aria-hidden="true">
+						<path
+							d="M3 1.5 L10 6 L3 10.5 Z"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.8"
+							stroke-linejoin="round"
+						/>
+					</svg>
+				</a>
+			{/each}
 		</div>
 	</div>
 </article>
 
 <style>
 	.wcard {
-		width: 23.19em;
-		aspect-ratio: 278.28 / 447.81;
+		/* Wider than the Figma frame so the browser mockup lands near a standard
+		   16:10 screen and screenshots aren't cropped; taller so a wrapped tool
+		   row never squeezes the mockup (the mock is a flex item). */
+		width: 26em;
+		aspect-ratio: 26 / 42;
 		background: var(--void);
 		border-radius: 1.25em;
 		display: flex;
@@ -80,8 +97,9 @@
 
 	header {
 		padding: 1.4em 1.1em 0;
-		height: 20.37%;
+		height: 30%;
 		color: var(--sandbox);
+		overflow: hidden;
 	}
 
 	h3 {
@@ -97,7 +115,7 @@
 		font-weight: 400;
 		line-height: 1.2;
 		display: -webkit-box;
-		-webkit-line-clamp: 4;
+		-webkit-line-clamp: 6;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 	}
@@ -120,6 +138,7 @@
 		border-radius: 0.67em;
 		overflow: hidden;
 		height: 16.1em;
+		flex-shrink: 0;
 		display: flex;
 		flex-direction: column;
 		background: #fff;
@@ -202,6 +221,7 @@
 		padding: 0;
 		margin: 0.5em 0 0;
 		display: flex;
+		flex-wrap: wrap;
 		gap: 0.4em;
 	}
 
@@ -216,6 +236,7 @@
 	.links {
 		margin-top: 0.5em;
 		display: flex;
+		flex-wrap: wrap;
 		gap: 0.85em;
 	}
 

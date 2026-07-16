@@ -25,9 +25,9 @@
 	/* Geometry as % of the 835.7x668 panel */
 	.region {
 		position: absolute;
-		left: 13.4%;
+		left: 8%;
 		top: 8.25%;
-		width: 73.25%;
+		width: 81%;
 		height: 83.4%;
 		overflow-y: auto;
 		scrollbar-width: none;
@@ -42,7 +42,7 @@
 	.cards {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 4.45em 9%;
+		gap: 4.45em 6%;
 	}
 
 	.sb-slot {
