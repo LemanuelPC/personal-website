@@ -48,8 +48,18 @@ jobs:
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
           printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          # Pin the host key so the upload cannot be intercepted.
-          ssh-keyscan -p "$SSH_PORT" "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          echo "key written: $(wc -l < ~/.ssh/deploy_key) lines, type $(ssh-keygen -l -f ~/.ssh/deploy_key 2>&1 | head -1)"
+
+          echo "--- can the runner reach the ssh port at all? ---"
+          timeout 10 bash -c "cat < /dev/null > /dev/tcp/$SSH_HOST/$SSH_PORT" \
+            && echo "  tcp connect OK" \
+            || echo "  tcp connect FAILED (host firewall likely blocks this runner)"
+
+          echo "--- ssh-keyscan ---"
+          ssh-keyscan -p "$SSH_PORT" "$SSH_HOST" > /tmp/hostkeys 2>/tmp/keyscan.err || true
+          echo "  exit=$? lines=$(wc -l < /tmp/hostkeys)"
+          echo "  stderr: $(head -3 /tmp/keyscan.err)"
+          cat /tmp/hostkeys >> ~/.ssh/known_hosts
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
