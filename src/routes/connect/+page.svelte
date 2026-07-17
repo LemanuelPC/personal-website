@@ -39,7 +39,7 @@
 				sunshine. I’ve been curious about computers for as long as I can remember.
 			</p>
 			<p>
-				Off the clock, I’m gaming, spending time with my wife, keeping up with soccer matches, or
+				Off the clock, I’m gaming, spending time with my wife, keeping up with football matches, or
 				hanging out with my cat.
 			</p>
 			<p>
