@@ -7,6 +7,26 @@
 	const bestRuns = projects.filter((p) => p.bestRun);
 
 	let strip: HTMLElement;
+	let atStart = $state(true);
+	let atEnd = $state(false);
+
+	function updateArrows() {
+		if (!strip) return;
+		const { scrollLeft, scrollTop, scrollWidth, scrollHeight, clientWidth, clientHeight } = strip;
+		// The strip scrolls on one axis at a time (horizontal on desktop,
+		// vertical on mobile); the idle axis reads as both at-start and at-end,
+		// so checking both axes works for either layout.
+		atStart = scrollLeft <= 1 && scrollTop <= 1;
+		atEnd =
+			scrollLeft + clientWidth >= scrollWidth - 1 && scrollTop + clientHeight >= scrollHeight - 1;
+	}
+
+	$effect(() => {
+		updateArrows();
+		const ro = new ResizeObserver(updateArrows);
+		ro.observe(strip);
+		return () => ro.disconnect();
+	});
 
 	function scrollByCard(dir: 1 | -1) {
 		const rect = strip.querySelector('article')?.getBoundingClientRect();
@@ -28,17 +48,27 @@
 	{#snippet panel()}
 		<div class="track" aria-hidden="true"></div>
 
-		<button class="arrow prev" aria-label="Previous project" onclick={() => scrollByCard(-1)}>
+		<button
+			class="arrow prev"
+			aria-label="Previous project"
+			disabled={atStart}
+			onclick={() => scrollByCard(-1)}
+		>
 			{@html iconArrow}
 		</button>
 
-		<div class="strip" bind:this={strip} tabindex="-1">
+		<div class="strip" bind:this={strip} tabindex="-1" onscroll={updateArrows}>
 			{#each bestRuns as project}
 				<ProjectCard {project} />
 			{/each}
 		</div>
 
-		<button class="arrow next" aria-label="Next project" onclick={() => scrollByCard(1)}>
+		<button
+			class="arrow next"
+			aria-label="Next project"
+			disabled={atEnd}
+			onclick={() => scrollByCard(1)}
+		>
 			{@html iconArrow}
 		</button>
 	{/snippet}
@@ -100,6 +130,10 @@
 		display: block;
 	}
 
+	.arrow :global(path) {
+		transition: stroke-opacity 150ms ease;
+	}
+
 	.arrow.prev {
 		left: 9.1%;
 		scale: -1 1;
@@ -119,6 +153,16 @@
 
 	.arrow:active {
 		translate: 0 4px;
+	}
+
+	/* Nothing further in that direction: ink stroke drops to 30%, per the
+	   Figma arrow component's greyed-out variant. */
+	.arrow:disabled {
+		pointer-events: none;
+	}
+
+	.arrow:disabled :global(path) {
+		stroke-opacity: 0.3;
 	}
 
 	@media (max-width: 760px) {
