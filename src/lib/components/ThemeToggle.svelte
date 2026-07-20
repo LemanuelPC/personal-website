@@ -40,31 +40,36 @@
 </button>
 
 <style>
+	/* The Figma switch is a rounded rectangle, not a pill: 5px radius on a
+	   42.8x19 body, kept proportional at this 54x24 scale */
 	.toggle {
 		display: inline-block;
 		width: 54px;
 		height: 24px;
-		border: 1.5px solid var(--ink);
-		border-radius: 999px;
+		/* The ring is an inset box-shadow because Blink floors fractional border
+		   widths to whole pixels: a 1.9px border paints as a 1px hairline, while
+		   a shadow ring rasterizes the true 1.9 (Figma's 1.5 at this scale) */
+		box-shadow: inset 0 0 0 1.9px var(--ink);
+		border-radius: 6.3px;
 		background: var(--paper);
 		position: relative;
 		transition:
 			background-color 240ms ease,
-			border-color 240ms ease;
+			box-shadow 240ms ease;
 	}
 
 	.thumb {
 		position: absolute;
 		top: 50%;
 		left: 4px;
-		width: 15px;
-		height: 15px;
+		width: 16.5px;
+		height: 16.5px;
 		translate: 0 -50%;
 		transition: translate 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
 	}
 
 	.toggle[aria-checked='true'] .thumb {
-		translate: 28px -50%;
+		translate: 29.5px -50%;
 	}
 
 	.sun,
