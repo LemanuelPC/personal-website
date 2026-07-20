@@ -14,7 +14,7 @@
 
 <nav class="site-nav" aria-label="Primary">
 	{#each nav as item, i}
-		{@const active = page.url.pathname === item.href}
+		{@const active = page.url.pathname.replace(/\/$/, '') === item.href}
 		<a href={item.href} style:--i={i} class:active aria-current={active ? 'page' : undefined}>
 			{item.label}
 			<span class="nav-icon" aria-hidden="true">
