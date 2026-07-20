@@ -85,7 +85,9 @@
 				/>
 			{/each}
 			{#each X as x}
-				<line x1={x} y1={Y[0]} x2={x} y2={Y.at(-1)} stroke="var(--ink)" />
+				<!-- The divider between the pill's two cells stops above the pill
+				     row, as in the mobile frame -->
+				<line x1={x} y1={Y[0]} x2={x} y2={x === X[6] ? Y[6] : Y.at(-1)} stroke="var(--ink)" />
 			{/each}
 			{#each Y as y}
 				<line x1={X[0]} y1={y} x2={X.at(-1)} y2={y} stroke="var(--ink)" />
@@ -230,15 +232,34 @@
 		border-radius: 15px;
 		display: flex;
 		flex-direction: column;
-		padding: 3.8% 5.1%;
+		/* Figma insets the photo frame 19.7/21.5 from the card edges (of the
+		   681 panel: 2.9% / 3.16%), leaving the name a 79px strip below */
+		padding: 3.16% 2.9% 0;
 	}
 
 	.photo {
+		position: relative;
 		border: 0.45em solid var(--echo-green);
 		outline: 1.5px solid var(--ink);
-		border-radius: 18px;
+		--photo-r: 1.6cqw;
+		border-radius: var(--photo-r);
 		overflow: hidden;
 		font-size: clamp(8px, 2.05cqw, 14px);
+		/* The Figma portrait frame is 346x474; the source image is a touch
+		   wider (3:4), so cover-crop it to the design's proportions */
+		aspect-ratio: 346 / 474;
+		flex-shrink: 0;
+	}
+
+	/* The Figma frame outlines the green band on BOTH edges: the outline above
+	   draws the outer ink line, this ring draws the inner one over the photo */
+	.photo::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: calc(var(--photo-r) - 0.45em);
+		box-shadow: inset 0 0 0 1.5px var(--ink);
+		pointer-events: none;
 	}
 
 	.photo img {
@@ -246,6 +267,19 @@
 		height: 100%;
 		object-fit: cover;
 		display: block;
+	}
+
+	/* Figma's desktop mask shows a specific window of the portrait (x 11.4%
+	   to 94.2%, y 1.3% to 86.9% of the image), not a centered cover crop */
+	@media (min-width: 761px) {
+		.photo img {
+			position: absolute;
+			width: 120.9%;
+			max-width: none;
+			height: auto;
+			left: -13.8%;
+			top: -1.5%;
+		}
 	}
 
 	.name {
@@ -269,10 +303,12 @@
 		overflow: visible;
 	}
 
+	/* Sits ON the photo card, above its frame, per the Figma desktop frame */
 	.piece.gold {
 		left: -4.3%;
 		top: 18.65%;
 		width: 31.57%;
+		z-index: 1;
 	}
 
 	.piece.green {
@@ -468,7 +504,7 @@
 		   the name's padding repositions the text instead of squeezing the photo. */
 		.photo {
 			font-size: clamp(8px, 2.54cqw, 14px);
-			border-radius: 2.6cqw;
+			--photo-r: 2.6cqw;
 			aspect-ratio: 177.912 / 216.316;
 			flex-shrink: 0;
 		}
