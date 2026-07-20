@@ -10,11 +10,12 @@
 	const X = [12.59, 106.99, 202.78, 298.57, 394.36, 490.15, 585.94, 680.36];
 	const Y = [1.12, 95.52, 191.31, 287.1, 382.89, 478.68, 574.47, 668.89];
 
-	// [col, row, fill] — 1-indexed cells
+	// [col, row, fill] — 1-indexed cells. The right dark square stays Void in
+	// both themes per the Figma dark frame; only the bottom-left one inverts.
 	const cells: [number, number, string][] = [
 		[7, 1, 'var(--echo-green)'],
 		[1, 2, 'var(--gold-byte)'],
-		[6, 3, 'var(--ink)'],
+		[6, 3, 'var(--void)'],
 		[7, 4, 'var(--gold-byte)'],
 		[6, 5, 'var(--echo-green)'],
 		[1, 6, 'var(--echo-green)'],
@@ -27,7 +28,7 @@
 		[214.4, 27.74, 66.32, 66.71, 'var(--echo-green)'],
 		[280.63, 94.52, 64.37, 65.77, 'var(--gold-byte)'],
 		[83.1, 94.51, 65.1, 65.78, 'var(--ink)'],
-		[213.95, 160.29, 65.78, 65.78, 'var(--ink)'],
+		[213.95, 160.29, 65.78, 65.78, 'var(--void)'],
 		[14.32, 291.68, 68.5, 66.98, 'var(--echo-green)']
 	];
 	const mVLines: [number, number, number][] = [
