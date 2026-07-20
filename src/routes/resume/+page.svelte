@@ -82,14 +82,16 @@
 <section class="resume">
 	<div class="actions">
 		<a class="action" href={pdf} download="Luis-Carvalho-Resume.pdf" aria-label="Download résumé">
-			<svg viewBox="0 0 16 16" aria-hidden="true">
-				<path d="M8 2v7m0 0 3-3M8 9 5 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-				<path d="M3 11v2.2h10V11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+			<svg class="dl" viewBox="0 0 11.6886 16.1971" aria-hidden="true">
+				<path d="M3.16016 15.1971H8.5293" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+				<path d="M5.84375 10.9322L5.84375 1.0296" fill="none" stroke="currentColor" stroke-width="2.0592" stroke-linecap="round" stroke-linejoin="round" />
+				<path d="M1 6.8194L4.52511 10.4147C5.19033 11.0931 6.27885 11.1062 6.96016 10.4439L10.6886 6.8194" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 			</svg>
 		</a>
 		<button class="action" aria-label="Close résumé" onclick={close}>
-			<svg viewBox="0 0 16 16" aria-hidden="true">
-				<path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+			<svg class="x" viewBox="0 0 14.6839 14.6837" aria-hidden="true">
+				<path d="M1.00013 13.6837L13.6839 1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+				<path d="M13.6837 13.6837L1 1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 			</svg>
 		</button>
 	</div>
@@ -193,24 +195,54 @@
 		gap: 12px;
 	}
 
+	/* Per the Figma résumé frames: a solid ink square in light mode; in dark
+	   mode the fill matches the page and a paper outline carries the shape */
+	/* The outline ring is an inset box-shadow rather than a border: Chromium
+	   paints thin borders as four bevel-joined sides, which chamfers the
+	   corners at DPR 1, while a shadow ring rasterizes as one smooth pass.
+	   Radius is 9.5px against Figma's 8: Skia flattens small arcs into a
+	   near-chamfer at 1x, so a slightly larger radius is what actually paints
+	   with the roundness the design shows. */
 	.actions .action {
-		width: 34px;
-		height: 34px;
-		border-radius: 8px;
+		width: 33px;
+		height: 33px;
+		border-radius: 9.5px;
 		background: var(--ink);
+		box-shadow: inset 0 0 0 1.5px var(--ink);
 		color: var(--paper);
 		display: grid;
 		place-items: center;
-		transition: translate 120ms ease;
+		transition:
+			translate 120ms ease,
+			background-color 240ms ease,
+			box-shadow 240ms ease,
+			color 240ms ease;
 	}
 
-	.actions .action:hover {
+	:global([data-theme='dark']) .actions .action {
+		background: var(--paper);
+		color: var(--ink);
+	}
+
+	/* Hover is Gold Byte with an ink-dark glyph in both themes */
+	.actions .action:hover,
+	:global([data-theme='dark']) .actions .action:hover {
 		translate: 0 -2px;
+		background: var(--gold-byte);
+		box-shadow: inset 0 0 0 1.5px var(--gold-byte);
+		color: var(--void);
 	}
 
-	.actions .action svg {
-		width: 18px;
-		height: 18px;
+	/* Sized off the 33px Figma buttons; the viewBoxes include the round-cap
+	   stroke bleed, so each glyph gets its own box rather than a shared 18px */
+	.actions .action svg.dl {
+		height: 16.2px;
+		width: auto;
+	}
+
+	.actions .action svg.x {
+		width: 14.7px;
+		height: auto;
 	}
 
 	/* The sheet is A4 on screen exactly as on paper, so what you see here is the
