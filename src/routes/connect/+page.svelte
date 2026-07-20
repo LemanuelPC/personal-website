@@ -77,7 +77,7 @@
 
 		<div class="photo-card">
 			<div class="photo">
-				<img src="/photo-luis.png" alt="Luís Carvalho" />
+				<img src="/photo-luis.webp" alt="Luís Carvalho" />
 			</div>
 			<p class="name">Luís C.</p>
 		</div>
