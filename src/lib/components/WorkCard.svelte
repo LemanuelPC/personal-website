@@ -39,12 +39,13 @@
 			{#if project.liveUrl}
 				<a class="mini-keycap" href={project.liveUrl} target="_blank" rel="noopener noreferrer">
 					Live link
-					<svg viewBox="0 0 12 12" aria-hidden="true">
+					<svg viewBox="0 0 5.0193 6.435" aria-hidden="true">
 						<path
-							d="M3 1.5 L10 6 L3 10.5 Z"
-							fill="none"
+							d="M0.5148 4.83181V1.73237C0.5148 1.02235 1.32801 0.619585 1.89278 1.04989L4.06239 2.70293C4.53109 3.06003 4.50862 3.77246 4.01834 4.09931L1.84873 5.54571C1.27854 5.92584 0.5148 5.51709 0.5148 4.83181Z"
+							fill="var(--sandbox)"
 							stroke="currentColor"
-							stroke-width="1.8"
+							stroke-width="1.0296"
+							stroke-linecap="round"
 							stroke-linejoin="round"
 						/>
 					</svg>
@@ -53,12 +54,13 @@
 			{#if project.githubUrl}
 				<a class="mini-keycap" href={project.githubUrl} target="_blank" rel="noopener noreferrer">
 					Github
-					<svg viewBox="0 0 12 12" aria-hidden="true">
+					<svg viewBox="0 0 5.0193 6.435" aria-hidden="true">
 						<path
-							d="M3 1.5 L10 6 L3 10.5 Z"
-							fill="none"
+							d="M0.5148 4.83181V1.73237C0.5148 1.02235 1.32801 0.619585 1.89278 1.04989L4.06239 2.70293C4.53109 3.06003 4.50862 3.77246 4.01834 4.09931L1.84873 5.54571C1.27854 5.92584 0.5148 5.51709 0.5148 4.83181Z"
+							fill="var(--sandbox)"
 							stroke="currentColor"
-							stroke-width="1.8"
+							stroke-width="1.0296"
+							stroke-linecap="round"
 							stroke-linejoin="round"
 						/>
 					</svg>
@@ -67,12 +69,13 @@
 			{#each project.links ?? [] as link}
 				<a class="mini-keycap" href={link.url} target="_blank" rel="noopener noreferrer">
 					{link.label}
-					<svg viewBox="0 0 12 12" aria-hidden="true">
+					<svg viewBox="0 0 5.0193 6.435" aria-hidden="true">
 						<path
-							d="M3 1.5 L10 6 L3 10.5 Z"
-							fill="none"
+							d="M0.5148 4.83181V1.73237C0.5148 1.02235 1.32801 0.619585 1.89278 1.04989L4.06239 2.70293C4.53109 3.06003 4.50862 3.77246 4.01834 4.09931L1.84873 5.54571C1.27854 5.92584 0.5148 5.51709 0.5148 4.83181Z"
+							fill="var(--sandbox)"
 							stroke="currentColor"
-							stroke-width="1.8"
+							stroke-width="1.0296"
+							stroke-linecap="round"
 							stroke-linejoin="round"
 						/>
 					</svg>
@@ -254,17 +257,29 @@
 		box-shadow: 0.35em 0.35em 0 -1px var(--void);
 		transition:
 			translate 110ms ease,
-			box-shadow 110ms ease;
+			box-shadow 110ms ease,
+			background-color 240ms ease;
 	}
 
 	.mini-keycap svg {
-		width: 0.75em;
-		height: 0.75em;
+		width: 0.56em;
+		height: auto;
 	}
 
+	.mini-keycap svg path {
+		transition: fill 240ms ease;
+	}
+
+	/* Hovered CTA fills with Echo Green and the arrow goes solid ink, per the
+	   Figma CTA buttons sheet */
 	.mini-keycap:hover {
 		translate: 0.12em 0.12em;
+		background: var(--echo-green);
 		box-shadow: 0.2em 0.2em 0 -1px var(--void);
+	}
+
+	.mini-keycap:hover svg path {
+		fill: var(--void);
 	}
 
 	.mini-keycap:active {

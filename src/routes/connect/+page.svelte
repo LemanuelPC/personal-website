@@ -87,12 +87,13 @@
 		<div class="resume-pill">
 			<a class="keycap" href="/resume">
 				Load résumé
-				<svg width="11" height="12" viewBox="0 0 11 12" aria-hidden="true">
+				<svg viewBox="0 0 5.0193 6.435" aria-hidden="true">
 					<path
-						d="M2 1.6 L9.2 6 L2 10.4 Z"
-						fill="none"
+						d="M0.5148 4.83181V1.73237C0.5148 1.02235 1.32801 0.619585 1.89278 1.04989L4.06239 2.70293C4.53109 3.06003 4.50862 3.77246 4.01834 4.09931L1.84873 5.54571C1.27854 5.92584 0.5148 5.51709 0.5148 4.83181Z"
+						fill="var(--paper)"
 						stroke="currentColor"
-						stroke-width="1.8"
+						stroke-width="1.0296"
+						stroke-linecap="round"
 						stroke-linejoin="round"
 					/>
 				</svg>
@@ -254,18 +255,32 @@
 			translate 110ms ease,
 			box-shadow 110ms ease,
 			background-color 240ms ease,
-			border-color 240ms ease;
+			border-color 240ms ease,
+			color 240ms ease;
 	}
 
 	.keycap svg {
-		width: 0.61em;
+		width: 0.55em;
 		height: auto;
 		flex-shrink: 0;
 	}
 
+	.keycap svg path {
+		transition: fill 240ms ease;
+	}
+
+	/* Hovered CTA fills with Echo Green and holds ink-dark text/border in both
+	   themes, per the Figma CTA buttons sheet; the arrow goes solid ink too */
 	.keycap:hover {
 		translate: 0.11em 0.11em;
+		background: var(--echo-green);
+		color: var(--void);
+		border-color: var(--void);
 		box-shadow: 0.29em 0.29em 0 -1px var(--ink);
+	}
+
+	.keycap:hover svg path {
+		fill: var(--void);
 	}
 
 	.keycap:active {
