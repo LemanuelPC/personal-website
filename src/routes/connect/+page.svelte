@@ -2,6 +2,8 @@
 	import NavLinks from '$lib/components/NavLinks.svelte';
 	import pieceGreen from '$lib/assets/piece-green.svg?raw';
 	import pieceGold from '$lib/assets/piece-gold.svg?raw';
+	import pieceGreenMobile from '$lib/assets/piece-green-mobile.svg?raw';
+	import pieceGoldMobile from '$lib/assets/piece-gold-mobile.svg?raw';
 
 	// Exact grid geometry from the Figma connect frame (681x669 container):
 	// 7x7 grid, border cells ~94.4, interior ~95.79 — measured, not assumed.
@@ -18,6 +20,23 @@
 		[1, 6, 'var(--echo-green)'],
 		[2, 7, 'var(--ink)']
 	];
+
+	// Mobile grid (Figma frame 22:3534), in the same 346x359 space as the
+	// homepage mobile art: [x, y, w, h, fill] cells and measured line runs
+	const mCells: [number, number, number, number, string][] = [
+		[214.4, 27.74, 66.32, 66.71, 'var(--echo-green)'],
+		[280.63, 94.52, 64.37, 65.77, 'var(--gold-byte)'],
+		[83.1, 94.51, 65.1, 65.78, 'var(--ink)'],
+		[213.95, 160.29, 65.78, 65.78, 'var(--ink)'],
+		[14.32, 291.68, 68.5, 66.98, 'var(--echo-green)']
+	];
+	const mVLines: [number, number, number][] = [
+		[82.82, 28.73, 357.63],
+		[148.6, 28.73, 357.63],
+		[214.39, 28.73, 357.63],
+		[280.17, 29.44, 291.87]
+	];
+	const mHLines = [94.51, 160.29, 226.07, 291.86];
 </script>
 
 <svelte:head>
@@ -55,7 +74,7 @@
 	</div>
 
 	<div class="panel">
-		<svg class="grid" viewBox="0 0 681 669" aria-hidden="true" preserveAspectRatio="none">
+		<svg class="grid grid-d" viewBox="0 0 681 669" aria-hidden="true" preserveAspectRatio="none">
 			{#each cells as [col, row, fill]}
 				<rect
 					x={X[col - 1]}
@@ -73,6 +92,30 @@
 			{/each}
 		</svg>
 
+		<!-- The mobile Figma frame swaps the composition: the same grid as the
+		     homepage mobile art, with the photo card overlaying its left side.
+		     Geometry from frame 22:3534 in the homepage svg's coordinate space. -->
+		<svg class="grid grid-m" viewBox="0 0 346 359" aria-hidden="true" preserveAspectRatio="none">
+			{#each mCells as [x, y, w, h, fill]}
+				<rect {x} {y} width={w} height={h} {fill} />
+			{/each}
+			{#each mVLines as [x, y1, y2]}
+				<line x1={x} y1={y1} x2={x} y2={y2} stroke="var(--ink)" stroke-width="0.687" />
+			{/each}
+			{#each mHLines as y}
+				<line x1="14.19" y1={y} x2="345" y2={y} stroke="var(--ink)" stroke-width="0.687" />
+			{/each}
+			<rect
+				x="14.19"
+				y="28.13"
+				width="330.81"
+				height="329.5"
+				fill="none"
+				stroke="var(--ink)"
+				stroke-width="0.687"
+			/>
+		</svg>
+
 		<span class="piece gold" aria-hidden="true">{@html pieceGold}</span>
 
 		<div class="photo-card">
@@ -83,6 +126,11 @@
 		</div>
 
 		<span class="piece green" aria-hidden="true">{@html pieceGreen}</span>
+
+		<!-- Mobile pieces sit ON the card: green over its top-left corner, gold
+		     over its bottom-right edge, at the Figma rotations -->
+		<span class="piece green-m" aria-hidden="true">{@html pieceGreenMobile}</span>
+		<span class="piece gold-m" aria-hidden="true">{@html pieceGoldMobile}</span>
 
 		<div class="resume-pill">
 			<a class="keycap" href="/resume">
@@ -233,6 +281,44 @@
 		width: 20.66%;
 	}
 
+	/* Mobile-frame pieces: hidden on desktop, sized to their rotated Figma
+	   bounding boxes with the raw asset rotated inside */
+	.piece.green-m,
+	.piece.gold-m {
+		display: none;
+		place-items: center;
+	}
+
+	.piece.green-m {
+		left: -1.48%;
+		top: -5.13%;
+		width: 23.3%;
+		height: 23.9%;
+	}
+
+	.piece.green-m :global(svg) {
+		width: 65.6%;
+		height: auto;
+		rotate: -31.27deg;
+	}
+
+	.piece.gold-m {
+		left: 48.85%;
+		top: 61.41%;
+		width: 15.25%;
+		height: 14.47%;
+	}
+
+	.piece.gold-m :global(svg) {
+		width: 74.4%;
+		height: auto;
+		rotate: 34.43deg;
+	}
+
+	.grid-m {
+		display: none;
+	}
+
 	/* Last two cells of the bottom row, same treatment as the homepage pill */
 	.resume-pill {
 		position: absolute;
@@ -340,8 +426,74 @@
 			font-size: 16px;
 		}
 
+		/* Same treatment as the homepage mobile art: the box bleeds past the
+		   margins so the grid border lands flush with the content edges */
 		.panel {
-			width: 100%;
+			width: 104.59%;
+			margin-left: -4.29%;
+			aspect-ratio: 346 / 359;
+		}
+
+		.grid-d {
+			display: none;
+		}
+
+		.grid-m {
+			display: block;
+		}
+
+		.piece.gold,
+		.piece.green {
+			display: none;
+		}
+
+		.piece.green-m,
+		.piece.gold-m {
+			display: grid;
+		}
+
+		/* Card spans the grid's left side (Figma: 200x266 at 14.35,27.74 in the
+		   346x359 frame); padding percentages resolve against the panel width */
+		.photo-card {
+			left: 4.15%;
+			top: 7.73%;
+			width: 57.82%;
+			height: 74.07%;
+			border-radius: 2.17cqw;
+			padding: 3.6% 3.13% 2.46%;
+		}
+
+		/* Figma crops the mobile portrait to a wider 178:216 ratio; without this
+		   the taller source image eats the name strip below it. flex-shrink 0 so
+		   the name's padding repositions the text instead of squeezing the photo. */
+		.photo {
+			font-size: clamp(8px, 2.54cqw, 14px);
+			border-radius: 2.6cqw;
+			aspect-ratio: 177.912 / 216.316;
+			flex-shrink: 0;
+		}
+
+		/* Inscribed in the last two cells of the bottom row, same box as the
+		   homepage explore pill */
+		.resume-pill {
+			width: 37.75%;
+			height: 18.32%;
+			right: 0.289%;
+			bottom: 0.29%;
+		}
+
+		/* The Figma keycap face is 26px tall on the 346 frame, an 11.1px face
+		   font with roughly half the desktop's side padding */
+		.keycap {
+			font-size: clamp(10px, 3.2cqw, 22px);
+			padding-inline: 0.55em;
+		}
+
+		/* Seat the name on Figma's baseline: its strip is not quite symmetric
+		   between the photo and the card's bottom edge (cqw so it tracks the
+		   panel, percentages here would resolve against the card instead) */
+		.name {
+			padding-top: 2.2cqw;
 		}
 	}
 </style>
