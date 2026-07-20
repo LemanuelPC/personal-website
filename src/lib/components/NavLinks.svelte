@@ -96,11 +96,13 @@
 		}
 	}
 
+	/* The mobile Figma frames keep the nav row inset from the page margins:
+	   a 296px row on the 331.76px content box, i.e. ~5.3% padding per side */
 	@media (max-width: 760px) {
 		.site-nav {
 			flex-direction: row;
 			justify-content: space-between;
-			padding-inline: 8px;
+			padding-inline: 5.3%;
 		}
 	}
 </style>

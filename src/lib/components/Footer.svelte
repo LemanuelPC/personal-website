@@ -41,13 +41,11 @@
 		text-align: right;
 	}
 
+	/* The mobile Figma frame keeps the copy right-aligned and only flips the
+	   badge to the line's right end */
 	@media (max-width: 760px) {
 		.rule {
 			flex-direction: row-reverse;
-		}
-
-		.copy {
-			text-align: center;
 		}
 	}
 </style>

@@ -225,12 +225,16 @@
 			align-self: stretch;
 		}
 
+		/* Figma mobile draws the headline at 88px across a 332px content box, so
+		   the size tracks the content width (90vw after the shell padding) rather
+		   than stopping at 64px; 23.5vw keeps a hair of slack so the nowrap lines
+		   never clip. */
 		h1 {
-			font-size: clamp(48px, 17.5vw, 64px);
+			font-size: clamp(48px, 23.5vw, 180px);
 		}
 
 		.tagline {
-			font-size: 24px;
+			font-size: 28px;
 		}
 
 		.br-desktop {
@@ -241,8 +245,13 @@
 			display: block;
 		}
 
+		/* The Figma mobile frame bleeds the artwork past the page margins so the
+		   grid BORDER lands exactly on them, flush with the headline's edges.
+		   The svg border is inset 4.101% left / 0.289% right, so the box widens
+		   to 1/0.9561 of the content and shifts left to put the border at 0/100%. */
 		.art {
-			width: 100%;
+			width: 104.59%;
+			margin-left: -4.29%;
 		}
 
 		.art-desktop {
@@ -253,13 +262,15 @@
 			display: block;
 		}
 
-		/* Mobile 5x5 grid in the 346x359 svg: border x 14.19-345.0 / y 28.13-358.66,
-		   interior lines at x=214.39 and y=291.86 bound the last two cells */
+		/* Mobile 5x5 grid in the 346x359 svg: border x 14.19-345.0 / y 28.13-357.63
+		   (the bottom border sits a hair inside the viewBox so its stroke isn't
+		   clipped away), interior lines at x=214.39 and y=291.86 bound the last
+		   two cells */
 		.explore-pill {
 			width: 37.75%;
-			height: 18.61%;
+			height: 18.32%;
 			right: 0.289%;
-			bottom: 0.095%;
+			bottom: 0.29%;
 		}
 
 		/* The mobile Figma frame uses a larger keycap-to-oval ratio than desktop

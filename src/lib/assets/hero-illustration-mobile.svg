@@ -12,7 +12,7 @@
 </g>
 <g id="Group 175">
 <g id="Group 171">
-<rect id="Rectangle 29" x="14.1904" y="28.1316" width="330.809" height="330.531" stroke="var(--ink)" stroke-width="0.686731"/>
+<rect id="Rectangle 29" x="14.1904" y="28.1316" width="330.809" height="329.5" stroke="var(--ink)" stroke-width="0.686731"/>
 <g id="Group 174">
 <g id="Group 172">
 <path id="Vector 34" d="M82.8175 28.7358L82.8175 357.857" stroke="var(--ink)" stroke-width="0.686731" stroke-linecap="round"/>
@@ -137,7 +137,7 @@
 </g>
 <defs>
 <clipPath id="clip0_2_55">
-<rect width="360" height="800" fill="white" transform="translate(0 -180.536)"/>
+<rect width="346" height="358" fill="white"/>
 </clipPath>
 </defs>
 </svg>
