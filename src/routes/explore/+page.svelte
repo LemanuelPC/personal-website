@@ -90,7 +90,11 @@
 
 	.strip {
 		position: absolute;
-		left: 15.95%;
+		/* Centred on the pill (left gap = right gap = (86.58% - 66.65%) / 2 off
+		   the track's 6.7%), which also keeps the card cut off at either scroll
+		   end clear of the pill's arcs: its squared-off corners fall inside the
+		   curve with room to spare on both sides. */
+		left: 16.665%;
 		/* Centred on the pill rather than pinned to a fixed offset, so the cards
 		   stay centred whatever height they end up. The pill starts at 21.15% and
 		   is 66.67% of the panel tall, so its middle sits here. */
