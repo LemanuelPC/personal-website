@@ -31,7 +31,7 @@
 	</div>
 
 	<div class="intro">
-		<h1>Let’s connect.</h1>
+		<h1>Let’s connect<span class="dot">.</span></h1>
 		<div class="blurb">
 			<p>
 				Hi there! It’s me, Luís. I write code, ship things, and enjoy seeing them survive
@@ -125,6 +125,13 @@
 
 	h1 {
 		font-size: clamp(40px, 4.45vw, 64px);
+	}
+
+	/* The headline's full stop goes Echo Green in dark mode, per the Figma
+	   dark frames (ink in light mode, where the token resolves to it) */
+	.dot {
+		color: var(--headline-dot);
+		transition: color 240ms ease;
 	}
 
 	.blurb {

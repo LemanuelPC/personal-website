@@ -17,6 +17,11 @@
 		gridRows?: number;
 		mobilePortrait?: boolean;
 	} = $props();
+
+	// A trailing full stop is the brand's headline dot and gets its own span,
+	// so it can go Echo Green in dark mode like the other page titles
+	const hasDot = $derived(title.endsWith('.'));
+	const stem = $derived(hasDot ? title.slice(0, -1) : title);
 </script>
 
 <section class="subpage">
@@ -25,7 +30,7 @@
 	</div>
 
 	<div class="intro">
-		<h1>{title}</h1>
+		<h1>{stem}{#if hasDot}<span class="dot">.</span>{/if}</h1>
 		<p class="subtitle">{subtitle}</p>
 	</div>
 
@@ -58,6 +63,11 @@
 
 	h1 {
 		font-size: clamp(40px, 4.45vw, 64px);
+	}
+
+	.dot {
+		color: var(--headline-dot);
+		transition: color 240ms ease;
 	}
 
 	.subtitle {

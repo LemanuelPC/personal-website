@@ -104,7 +104,7 @@
 
 			<header class="doc-head">
 				<div>
-					<h1>Hi,<br />I’m Luís.</h1>
+					<h1>Hi,<br />I’m Luís<span class="dot">.</span></h1>
 					<p class="tagline">A software developer.</p>
 				</div>
 				<span class="mark" aria-hidden="true">{@html logomark}</span>
@@ -315,6 +315,13 @@
 	h1 {
 		font-size: 8em;
 		letter-spacing: -0.03em;
+	}
+
+	/* The headline's full stop goes Echo Green in dark mode, per the Figma
+	   dark frames; print already pins --headline-dot back to ink for the PDF */
+	.dot {
+		color: var(--headline-dot);
+		transition: color 240ms ease;
 	}
 
 	.tagline {
