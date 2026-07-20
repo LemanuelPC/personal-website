@@ -45,9 +45,11 @@
 		gap: 4.45em 6%;
 	}
 
+	/* Right edge pinned to the 14th column line (the grid draws its 1px lines
+	   at multiples of 100%/15), so the scrollbar ends exactly on it */
 	.sb-slot {
 		position: absolute;
-		left: 90.05%;
+		right: calc(6.6667% - 1px);
 		top: 8.33%;
 		width: 3.24%;
 		height: 83.4%;
@@ -71,6 +73,7 @@
 
 		.sb-slot {
 			left: 88%;
+			right: auto;
 			width: 6%;
 		}
 	}
