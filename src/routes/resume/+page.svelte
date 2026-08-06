@@ -1,5 +1,6 @@
 <script lang="ts">
 	import logomark from '$lib/assets/logomark.svg?raw';
+	import Seo from '$lib/components/Seo.svelte';
 
 	const skills = [
 		{ group: 'Programming', items: ['Python', 'TypeScript', 'JavaScript', 'Dart', 'Java', 'SQL', 'Rust'] },
@@ -74,10 +75,10 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Résumé - Luís Carvalho</title>
-	<meta name="description" content="Résumé of Luís Carvalho, software developer." />
-</svelte:head>
+<Seo
+	title="Résumé - Luís Carvalho"
+	description="Résumé of Luís Carvalho, software developer."
+/>
 
 <section class="resume">
 	<div class="actions">

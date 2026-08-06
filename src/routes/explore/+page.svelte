@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Seo from '$lib/components/Seo.svelte';
 	import SubPage from '$lib/components/SubPage.svelte';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
 	import iconArrow from '$lib/assets/icon-arrow.svg?raw';
@@ -39,10 +40,10 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Explore - Luís Carvalho</title>
-	<meta name="description" content="Best runs. A curated selection of work worth replaying." />
-</svelte:head>
+<Seo
+	title="Explore - Luís Carvalho"
+	description="Best runs. A curated selection of work worth replaying."
+/>
 
 <SubPage title="Best runs." subtitle="A curated selection of work worth replaying." mobilePortrait>
 	{#snippet panel()}

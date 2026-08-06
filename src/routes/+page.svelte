@@ -2,12 +2,15 @@
 	import heroArt from '$lib/assets/hero-illustration.svg?raw';
 	import heroArtMobile from '$lib/assets/hero-illustration-mobile.svg?raw';
 	import NavLinks from '$lib/components/NavLinks.svelte';
+	import Seo from '$lib/components/Seo.svelte';
+	import { personSchema, websiteSchema } from '$lib/seo';
 </script>
 
-<svelte:head>
-	<title>Luís Carvalho - Software Developer</title>
-	<meta name="description" content="Hi, I’m Luís. A software developer." />
-</svelte:head>
+<Seo
+	title="Luís Carvalho - Software Developer"
+	description="Full-stack developer building production ERP, web and mobile systems: custom Odoo modules in Python, React Native apps in TypeScript."
+	schema={{ '@context': 'https://schema.org', '@graph': [personSchema, websiteSchema] }}
+/>
 
 <section class="hero">
 	<div class="hero-nav">

@@ -1,15 +1,16 @@
 <script lang="ts">
 	import SubPage from '$lib/components/SubPage.svelte';
 	import CardShelf from '$lib/components/CardShelf.svelte';
+	import Seo from '$lib/components/Seo.svelte';
 	import { projects } from '$lib/data/projects';
 
 	const items = projects.filter((p) => p.shelf.includes('work'));
 </script>
 
-<svelte:head>
-	<title>Work - Luís Carvalho</title>
-	<meta name="description" content="All shipped work across products and platforms." />
-</svelte:head>
+<Seo
+	title="Work - Luís Carvalho"
+	description="All shipped work across products and platforms."
+/>
 
 <SubPage title="Work." subtitle="All shipped work across products and platforms.">
 	{#snippet panel()}

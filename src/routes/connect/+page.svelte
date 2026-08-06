@@ -1,5 +1,6 @@
 <script lang="ts">
 	import NavLinks from '$lib/components/NavLinks.svelte';
+	import Seo from '$lib/components/Seo.svelte';
 	import pieceGreen from '$lib/assets/piece-green.svg?raw';
 	import pieceGold from '$lib/assets/piece-gold.svg?raw';
 	import pieceGreenMobile from '$lib/assets/piece-green-mobile.svg?raw';
@@ -40,10 +41,10 @@
 	const mHLines = [94.51, 160.29, 226.07, 291.86];
 </script>
 
-<svelte:head>
-	<title>Connect - Luís Carvalho</title>
-	<meta name="description" content="Let’s connect. Email me or find me on GitHub and LinkedIn." />
-</svelte:head>
+<Seo
+	title="Connect - Luís Carvalho"
+	description="Let’s connect. Email me or find me on GitHub and LinkedIn."
+/>
 
 <section class="connect">
 	<div class="nav-slot">
