@@ -45,10 +45,17 @@
 		transition: opacity 350ms ease 150ms;
 	}
 
+	/* visibility, not just opacity: a transparent element stays in the
+	   accessibility tree, which left a permanent "Loading" status for screen
+	   readers to find. Delayed past the fade so the transition still plays. */
 	:global(html[data-splashed='true']) .splash,
 	.splash.done {
 		opacity: 0;
 		pointer-events: none;
+		visibility: hidden;
+		transition:
+			opacity 350ms ease 150ms,
+			visibility 0s linear 500ms;
 	}
 
 	.label {

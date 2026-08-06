@@ -27,9 +27,11 @@
 
 <Splash />
 
+<a class="skip" href="#main">Skip to content</a>
+
 <div class="shell">
 	<Header />
-	<main>
+	<main id="main" tabindex="-1">
 		{@render children()}
 	</main>
 	<Footer />
@@ -49,5 +51,31 @@
 		flex: 1;
 		display: flex;
 		flex-direction: column;
+	}
+
+	/* The header repeats on every page, so a keyboard user would otherwise tab
+	   the logo, both socials and the theme switch before reaching the content.
+	   Off-screen until focused rather than display:none, which is skipped. */
+	.skip {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 200;
+		transform: translateY(-120%);
+		background: var(--paper);
+		color: var(--ink);
+		font-weight: 700;
+		padding: 12px 18px;
+		margin: 8px;
+		border-radius: 4px;
+		box-shadow: 0 0 0 2px var(--ink);
+	}
+
+	.skip:focus {
+		transform: none;
+	}
+
+	main:focus {
+		outline: none;
 	}
 </style>
