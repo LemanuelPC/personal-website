@@ -9,7 +9,7 @@
      and link keycaps. 1em = 12px at design scale. -->
 <article class="wcard">
 	<header>
-		<h3>{project.title}</h3>
+		<h2>{project.title}</h2>
 		<p class="desc">{project.description}</p>
 	</header>
 
@@ -105,7 +105,7 @@
 		overflow: hidden;
 	}
 
-	h3 {
+	h2 {
 		font-size: 1.17em;
 		font-weight: 700;
 		line-height: 1.2;

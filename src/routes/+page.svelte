@@ -4,6 +4,11 @@
 	import NavLinks from '$lib/components/NavLinks.svelte';
 	import Seo from '$lib/components/Seo.svelte';
 	import { personSchema, websiteSchema } from '$lib/seo';
+
+	const heroArtLabel =
+		'Isometric illustration on a seven by seven grid: a laptop, a handheld games console, ' +
+		'a gamepad and a C sharp logo, drawn as stacked line work in green and gold and scattered ' +
+		'across the squares.';
 </script>
 
 <Seo
@@ -25,8 +30,11 @@
 	</div>
 
 	<div class="art">
-		<div class="art-desktop" aria-hidden="true">{@html heroArt}</div>
-		<div class="art-mobile" aria-hidden="true">{@html heroArtMobile}</div>
+		<!-- Described rather than hidden: the illustration carries the whole
+		     introduction on this page, so a screen reader that skips it is left
+		     with two lines of text and nothing else. -->
+		<div class="art-desktop" role="img" aria-label={heroArtLabel}>{@html heroArt}</div>
+		<div class="art-mobile" role="img" aria-label={heroArtLabel}>{@html heroArtMobile}</div>
 		<div class="explore-pill">
 			<a class="keycap" href="/explore">
 				Explore
