@@ -15,7 +15,9 @@ export default defineConfig({
 			// any static host can serve. Trailing slashes give every route its own
 			// directory with an index.html, which Apache and LiteSpeed serve
 			// without needing rewrite rules.
-			adapter: adapter(),
+			// fallback gives the build a 404.html for .htaccess to serve on an
+			// unknown path; every real route is still prerendered to its own file.
+			adapter: adapter({ fallback: '404.html' }),
 			prerender: { handleHttpError: 'fail' },
 			paths: { relative: false }
 		})

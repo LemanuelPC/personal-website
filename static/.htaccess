@@ -1,0 +1,28 @@
+# Lives in static/ so it ships inside build/: the deploy rsyncs with --delete,
+# which would otherwise strip a file placed on the server by hand.
+#
+# Hostinger already redirects http to https and adds the trailing slash at the
+# edge, so this only covers what it does not do. Every block is wrapped in
+# IfModule so a missing module degrades to nothing rather than a 500.
+
+# One canonical host. www.lepc.dev currently answers 200 alongside the apex,
+# which splits ranking signals and lets both be indexed as separate sites.
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteCond %{HTTP_HOST} ^www\.lepc\.dev$ [NC]
+	RewriteRule ^(.*)$ https://lepc.dev/$1 [R=301,L]
+</IfModule>
+
+# The prerendered fallback, so an unknown path gets the site's own error page
+# instead of the server's default. Apache still sends a 404 status with it.
+ErrorDocument 404 /404.html
+
+# Filenames under /_app/immutable/ carry a content hash, so a given URL can
+# never change and is safe to cache for a year. Everything else is left on the
+# host's defaults so a deploy shows up immediately.
+<IfModule mod_setenvif.c>
+	SetEnvIf Request_URI "^/_app/immutable/" IMMUTABLE_ASSET
+</IfModule>
+<IfModule mod_headers.c>
+	Header set Cache-Control "public, max-age=31536000, immutable" env=IMMUTABLE_ASSET
+</IfModule>
