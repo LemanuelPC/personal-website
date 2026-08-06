@@ -26,3 +26,10 @@ ErrorDocument 404 /404.html
 <IfModule mod_headers.c>
 	Header set Cache-Control "public, max-age=31536000, immutable" env=IMMUTABLE_ASSET
 </IfModule>
+
+# The host serves .webmanifest as text/plain, which is not the type the spec
+# names for it.
+<IfModule mod_mime.c>
+	AddType application/manifest+json .webmanifest
+	AddType image/svg+xml .svg
+</IfModule>
