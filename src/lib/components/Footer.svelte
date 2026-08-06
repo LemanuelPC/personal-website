@@ -27,10 +27,12 @@
 		height: 21px;
 	}
 
+	/* Its own tint rather than --ink-muted: the rule is decorative, so it keeps
+	   the lighter Figma weight that the text token had to leave behind. */
 	.line {
 		flex: 1;
 		height: 2px;
-		background: var(--ink-muted);
+		background: color-mix(in srgb, var(--ink) 50%, transparent);
 	}
 
 	.copy {

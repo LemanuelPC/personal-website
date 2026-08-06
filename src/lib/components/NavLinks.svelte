@@ -46,11 +46,11 @@
 	/* Active page: label and coin turn Gold Byte (the icons draw with var(--ink),
 	   so scoping an override recolors them without a second asset) */
 	.site-nav a.active {
-		color: var(--gold-byte);
+		color: var(--gold-text);
 	}
 
 	.site-nav a.active .nav-icon {
-		--ink: var(--gold-byte);
+		--ink: var(--gold-text);
 	}
 
 	/* Two icon states per the Figma component (Groups 373-375): a raised coin
