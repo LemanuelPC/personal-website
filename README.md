@@ -27,6 +27,8 @@ A six-page portfolio that is as much a design exercise as a code one. The brand,
    +-- app.css                brand tokens + light/dark semantics
 
   scripts/resume-pdf.mjs      renders /resume to a print-ready A4 pdf
+  scripts/favicons.mjs        renders the logomark into the favicon set
+  scripts/og-image.mjs        renders the 1200x630 link-preview card
 ```
 
 ## Features
@@ -64,6 +66,17 @@ npm run resume:pdf
 ```
 
 It renders `/resume` to A4, prints how much of the sheet the content fills, and warns if it would spill onto a second page.
+
+## Regenerating the icons and link preview
+
+Both sets are committed under `static/`, rendered from the brand rather than drawn by hand, so re-run these only when the logomark or wording changes:
+
+```bash
+npm run favicons     # favicon.ico, apple-touch-icon.png, icon-192/512.png
+npm run og           # og.png, the 1200x630 card shown when a link is shared
+```
+
+The icons are served from `static/` rather than imported through Vite on purpose: an asset that small gets inlined as a `data:` URI, which leaves no URL for Google's favicon crawler or for anything fetching `/favicon.ico` to find.
 
 ## Notes
 
