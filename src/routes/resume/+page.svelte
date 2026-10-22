@@ -573,6 +573,7 @@
 		}
 
 		:global(.splash),
+		:global(.skip),
 		:global(.shell > header),
 		:global(.shell > footer),
 		.actions {

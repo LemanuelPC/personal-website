@@ -55,13 +55,15 @@
 
 	/* The header repeats on every page, so a keyboard user would otherwise tab
 	   the logo, both socials and the theme switch before reaching the content.
-	   Off-screen until focused rather than display:none, which is skipped. */
+	   Off-screen until focused rather than display:none, which is skipped. The
+	   transform clears the 8px margin and the 2px ring as well as the box itself:
+	   a percentage alone left the bottom of the ring peeking in at the top. */
 	.skip {
 		position: fixed;
 		top: 0;
 		left: 0;
 		z-index: 200;
-		transform: translateY(-120%);
+		transform: translateY(calc(-100% - 12px));
 		background: var(--paper);
 		color: var(--ink);
 		font-weight: 700;
