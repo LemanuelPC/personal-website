@@ -190,7 +190,7 @@
 							<article>
 								<h3>{job.org}</h3>
 								{#each job.roles as { role, period }}
-									<p class="meta"><span>{role}</span><span class="period">{period}</span></p>
+									<p class="meta">{role} · {period}</p>
 								{/each}
 								<ul class="bullets">
 									{#each job.bullets as bullet}
@@ -462,11 +462,11 @@
 	   the PDF backend paint this into its own transparency group, which lands at
 	   the end of the content stream. The role and dates then extract detached
 	   from the employer above them, which is the one thing a CV parser must get
-	   right. Blending against --paper renders identically. */
+	   right. Blending against --paper renders identically.
+	   The dates follow the role inline rather than sitting flush right: across
+	   a gap that wide, extractors split the two into separate blocks, and every
+	   title came out ahead of every date. */
 	.meta {
-		display: flex;
-		justify-content: space-between;
-		gap: 1em;
 		color: color-mix(in srgb, var(--ink) 50%, var(--paper));
 	}
 
