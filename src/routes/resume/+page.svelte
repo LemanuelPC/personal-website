@@ -24,22 +24,46 @@
 		{
 			group: 'Data & Infra',
 			items: ['PostgreSQL', 'Redis', 'SQLite', 'Docker', 'Git', 'REST', 'WebSockets', 'JWT', 'CUDA']
-		},
-		{ group: 'Methodologies', items: ['SCRUM', 'Kanban'] }
+		}
 	];
 
+	// `roles` rather than a single role: a promotion within one employer is worth
+	// showing, and stacking the titles under one org keeps each of them bound to
+	// that org when a CV parser reads the page. Newest first.
 	const experience = [
 		{
 			org: 'Eclypsys',
-			role: 'Full Stack Developer',
-			period: '2024 - present',
-			text: 'Designed, developed, and maintained enterprise-level ERP and e-commerce applications, working across backend, frontend, and integration layers. Utilized Odoo, Python, and React Native to build scalable, maintainable systems supporting core business operations, from custom ERP modules to a customer-facing mobile app.'
+			roles: [
+				{ role: 'Senior Full Stack Developer', period: '2026 - present' },
+				{ role: 'Full Stack Developer', period: '2024 - 2026' }
+			],
+			bullets: [
+				'Lead developer on Village du Soir, an Odoo 18 platform for a Geneva venue: 45 custom modules, 164 API endpoints, 248 tests, Adyen and TWINT across 40 POS terminals, 400k+ orders.',
+				'Rewrote the customer app in TypeScript on Expo: 62 screens, half the code of the original, shipped over the air without app-store releases.',
+				'Made Redis optional behind a PostgreSQL fallback, clearing 5s request stalls and unblocking the move to Odoo.sh.'
+			]
 		},
 		{
 			org: 'Fed. Portuguesa de Artes Marciais Chinesas',
-			role: 'Administrative Technician',
-			period: '2017 - 2024',
-			text: "Primary communication liaison between the federation, its member associations, athletes and trainers. Handled database management and member support, planned and ran championships and workshops, and maintained the federation's website alongside its social channels."
+			roles: [{ role: 'Administrative Technician', period: '2017 - 2024' }],
+			bullets: [
+				"Member database, member support, and the federation's website."
+			]
+		}
+	];
+
+	// Village du Soir is deliberately absent: it is named in the Eclypsys entry,
+	// and this section is for work that has nowhere else to appear.
+	const projects = [
+		{
+			name: 'Karaoke Room',
+			url: 'https://github.com/LemanuelPC/karaoke-room',
+			text: 'ML vocal separation, word-level lyric sync with CJK romanization, big-screen player driven by phone remotes.'
+		},
+		{
+			name: 'UNW Hunt Tracker',
+			url: 'https://github.com/LemanuelPC/unw-hunt-tracker',
+			text: 'Excel to PostgreSQL pipeline behind a Flask API with role-based access, used weekly by a 100+ member guild.'
 		}
 	];
 
@@ -51,13 +75,13 @@
 		},
 		{
 			org: 'Faculty of Arts and Humanities (FLUP)',
-			period: '2015',
-			text: '(Frequency) Bachelor in Applied Languages'
+			period: '2015 - 2018',
+			text: 'Applied Languages'
 		},
 		{
 			org: 'Faculty of Sciences (FCUP)',
-			period: '2011',
-			text: '(Frequency) Integrated Master’s Degree in Network and Information Systems Engineering'
+			period: '2011 - 2015',
+			text: 'Network and Information Systems Engineering'
 		}
 	];
 
@@ -105,7 +129,7 @@
 
 			<header class="doc-head">
 				<div>
-					<h1>Hi,<br />I’m Luís<span class="dot">.</span></h1>
+					<h1>Hi,<br />I’m Luís Carvalho<span class="dot">.</span></h1>
 					<p class="tagline">A software developer.</p>
 				</div>
 				<span class="mark" aria-hidden="true">{@html logomark}</span>
@@ -116,9 +140,13 @@
 					<section>
 						<h2>Contact</h2>
 						<ul class="contact">
-							<li><a href="https://lepc.dev">lepc.dev</a></li>
+							<li>Amarante, Portugal</li>
 							<li><a href="mailto:prazerescarvalho@gmail.com">prazerescarvalho@gmail.com</a></li>
-							<li><a href="tel:+351911775897">+351 911775897</a></li>
+							<li><a href="https://lepc.dev">lepc.dev</a></li>
+							<li>
+								<a href="https://www.linkedin.com/in/le-pc/">linkedin.com/in/le-pc</a> ·
+								<a href="https://github.com/LemanuelPC">github.com/LemanuelPC</a>
+							</li>
 						</ul>
 					</section>
 
@@ -126,8 +154,8 @@
 						<h2>Profile</h2>
 						<p>
 							Full-stack developer building production ERP, web and mobile systems: custom Odoo
-							modules in Python, React Native apps in TypeScript. I work across stacks by design, and
-							a new framework is a ramp rather than a wall.
+							modules in Python, React Native apps in TypeScript. A new framework is a ramp, not a
+							wall.
 						</p>
 					</section>
 
@@ -144,8 +172,10 @@
 					</section>
 
 					<section>
-						<h2>Languages</h2>
-						<p>English &amp; Portuguese</p>
+						<h2>Projects</h2>
+						{#each projects as { name, url, text }}
+							<p class="project"><strong><a href={url}>{name}</a></strong> — {text}</p>
+						{/each}
 					</section>
 				</div>
 
@@ -155,8 +185,14 @@
 						{#each experience as job}
 							<article>
 								<h3>{job.org}</h3>
-								<p class="meta"><span>{job.role}</span><span class="period">{job.period}</span></p>
-								<p>{job.text}</p>
+								{#each job.roles as { role, period }}
+									<p class="meta"><span>{role}</span><span class="period">{period}</span></p>
+								{/each}
+								<ul class="bullets">
+									{#each job.bullets as bullet}
+										<li>{bullet}</li>
+									{/each}
+								</ul>
 							</article>
 						{/each}
 					</section>
@@ -170,6 +206,13 @@
 								<p>{edu.text}</p>
 							</article>
 						{/each}
+					</section>
+
+					<!-- Languages sits in the right column: the contact block grew with the
+					     location and profile links, and this is where the slack is. -->
+					<section>
+						<h2>Languages</h2>
+						<p>English &amp; Portuguese</p>
 					</section>
 				</div>
 			</div>
@@ -313,8 +356,12 @@
 		padding: 3.2em 3.9em 0;
 	}
 
+	/* 6.3em rather than the 8em of the Figma frame: the headline carries the full
+	   name so that a CV parser reads it from the largest type on the sheet, and
+	   "I'm Luís Carvalho." only stays on one line at this size. */
 	h1 {
-		font-size: 8em;
+		font-size: 5.6em;
+		line-height: 0.95;
 		letter-spacing: -0.03em;
 	}
 
@@ -402,11 +449,47 @@
 		color: var(--gold-byte);
 	}
 
+	/* Muted via a blended colour rather than `opacity`: an opacity below 1 makes
+	   the PDF backend paint this into its own transparency group, which lands at
+	   the end of the content stream. The role and dates then extract detached
+	   from the employer above them, which is the one thing a CV parser must get
+	   right. Blending against --paper renders identically. */
 	.meta {
 		display: flex;
 		justify-content: space-between;
 		gap: 1em;
-		opacity: 0.5;
+		color: color-mix(in srgb, var(--ink) 50%, var(--paper));
+	}
+
+	/* Stacked titles under one employer read as one ladder, so they sit closer
+	   together than the 0.6em a paragraph would otherwise take. */
+	.meta + .meta {
+		margin-top: 0.25em;
+	}
+
+	/* Achievements scan far better as bullets than as a paragraph. The marker is
+	   generated content rather than a list-style disc: the PDF backend draws a
+	   disc as vector paths, which leaves no bullet in the text layer, while
+	   ::before content is laid out as real text and extracts with the line. */
+	.bullets {
+		list-style: none;
+		margin-top: 0.6em;
+		padding-left: 0;
+	}
+
+	.bullets li {
+		font-size: 1em;
+		font-weight: 400;
+		padding-left: 0.9em;
+		text-indent: -0.9em;
+	}
+
+	.bullets li::before {
+		content: '• ';
+	}
+
+	.bullets li + li {
+		margin-top: 0.4em;
 	}
 
 	.chips {
