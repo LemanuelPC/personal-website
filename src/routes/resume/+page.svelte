@@ -190,7 +190,7 @@
 							<article>
 								<h3>{job.org}</h3>
 								{#each job.roles as { role, period }}
-									<p class="meta">{role} · {period}</p>
+									<p class="meta">{role} <span class="sep">·</span> {period}</p>
 								{/each}
 								<ul class="bullets">
 									{#each job.bullets as bullet}
@@ -468,6 +468,12 @@
 	   title came out ahead of every date. */
 	.meta {
 		color: color-mix(in srgb, var(--ink) 50%, var(--paper));
+	}
+
+	/* A little air around the dot, kept to well under the gap at which
+	   extractors would split the role from its dates again. */
+	.sep {
+		margin-inline: 0.2em;
 	}
 
 	/* Stacked titles under one employer read as one ladder, so they sit closer
