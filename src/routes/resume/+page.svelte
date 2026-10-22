@@ -1,4 +1,8 @@
 <script lang="ts">
+	// Static instances of Space Grotesk for the sheet; see `.doc` for why.
+	import '@fontsource/space-grotesk/400.css';
+	import '@fontsource/space-grotesk/500.css';
+	import '@fontsource/space-grotesk/700.css';
 	import logomark from '$lib/assets/logomark.svg?raw';
 	import Seo from '$lib/components/Seo.svelte';
 
@@ -174,7 +178,7 @@
 					<section>
 						<h2>Projects</h2>
 						{#each projects as { name, url, text }}
-							<p class="project"><strong><a href={url}>{name}</a></strong> — {text}</p>
+							<p class="project"><strong><a href={url}>{name}</a>:</strong> {text}</p>
 						{/each}
 					</section>
 				</div>
@@ -310,6 +314,11 @@
 		outline: 1px solid color-mix(in srgb, var(--ink) 40%, transparent);
 		outline-offset: -1px;
 		font-size: 1.5875cqw;
+		/* The static font rather than the site's variable one: Skia embeds a
+		   variable font in the PDF without Ascent, Descent or FontBBox, so text
+		   extractors guess each line's height, overlap neighbouring lines, and
+		   splice them into one another letter by letter. */
+		font-family: 'Space Grotesk', var(--font-sans);
 		display: flex;
 		flex-direction: column;
 		/* Measure text by linear metrics, the way the PDF backend does, so a line
@@ -356,7 +365,7 @@
 		padding: 3.2em 3.9em 0;
 	}
 
-	/* 6.3em rather than the 8em of the Figma frame: the headline carries the full
+	/* 5.6em rather than the 8em of the Figma frame: the headline carries the full
 	   name so that a CV parser reads it from the largest type on the sheet, and
 	   "I'm Luís Carvalho." only stays on one line at this size. */
 	h1 {
